@@ -4,9 +4,9 @@ Just random UI practices using flutter.
 
 # screens
 
-![alt text](https://github.com/touhid1333/flutter_ui_part_01/blob/master/assets/images/sample_landing.png)
+<img src="https://github.com/touhid1333/flutter_ui_part_01/blob/master/assets/images/sample_landing.png" width="240" height="480">
 
-![alt text](https://github.com/touhid1333/flutter_ui_part_01/blob/master/assets/images/sample_details.png)
+<img src="https://github.com/touhid1333/flutter_ui_part_01/blob/master/assets/images/sample_details.png" width="240" height="480">
 
 ## Getting Started
 
