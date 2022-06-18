@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_part_01/custom/BorderBox.dart';
 import 'package:flutter_ui_part_01/custom/CustomButton.dart';
+import 'package:flutter_ui_part_01/screen/DetailsScreen.dart';
 import 'package:flutter_ui_part_01/utils/constants.dart';
 import 'package:flutter_ui_part_01/utils/custom_functions.dart';
+import 'package:flutter_ui_part_01/utils/my_routes.dart';
 import 'package:flutter_ui_part_01/utils/sample_data.dart';
 import 'package:flutter_ui_part_01/utils/widget_functions.dart';
+import 'package:get/get.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);
@@ -91,11 +94,12 @@ class LandingScreen extends StatelessWidget {
                     child: Padding(
                       padding: sidePadding,
                       child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: RE_DATA.length,
-                          itemBuilder: (context, index) {
-                            return RealEstateItem(itemData: RE_DATA[index]);
-                          }),
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: RE_DATA.length,
+                        itemBuilder: (context, index) {
+                          return RealEstateItem(itemData: RE_DATA[index]);
+                        },
+                      ),
                     ),
                   )
                 ],
@@ -151,47 +155,52 @@ class RealEstateItem extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     return Container(
       margin: const EdgeInsets.only(top: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: Image.asset(itemData["image"])),
-              const Positioned(
-                  top: 15,
-                  right: 15,
-                  child: BorderBox(
-                    height: 50,
-                    width: 50,
-                    child: Icon(
-                      Icons.favorite_border,
-                      color: COLOR_BLACK,
-                    ),
-                  )),
-            ],
-          ),
-          addVerticalSpace(15),
-          Row(
-            children: [
-              Text(
-                "${formatCurrency(itemData["amount"])}",
-                style: themeData.textTheme.headline1,
-              ),
-              addHorizontalSpace(10),
-              Text(
-                "${itemData["address"]}",
-                style: themeData.textTheme.bodyText2,
-              )
-            ],
-          ),
-          addVerticalSpace(10),
-          Text(
-            "${itemData["bedrooms"]} bedrooms / ${itemData["bathrooms"]} bathrooms / ${itemData["area"]} sqft",
-            style: themeData.textTheme.headline5,
-          )
-        ],
+      child: InkWell(
+        onTap: () {
+          Get.to(DetailsScreen(itemData: itemData));
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: Image.asset(itemData["image"])),
+                const Positioned(
+                    top: 15,
+                    right: 15,
+                    child: BorderBox(
+                      height: 50,
+                      width: 50,
+                      child: Icon(
+                        Icons.favorite_border,
+                        color: COLOR_BLACK,
+                      ),
+                    )),
+              ],
+            ),
+            addVerticalSpace(15),
+            Row(
+              children: [
+                Text(
+                  "${formatCurrency(itemData["amount"])}",
+                  style: themeData.textTheme.headline1,
+                ),
+                addHorizontalSpace(10),
+                Text(
+                  "${itemData["address"]}",
+                  style: themeData.textTheme.bodyText2,
+                )
+              ],
+            ),
+            addVerticalSpace(10),
+            Text(
+              "${itemData["bedrooms"]} bedrooms / ${itemData["bathrooms"]} bathrooms / ${itemData["area"]} sqft",
+              style: themeData.textTheme.headline5,
+            )
+          ],
+        ),
       ),
     );
   }
